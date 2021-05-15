@@ -1,9 +1,9 @@
 <?php
 
-namespace jlekowski\AsyncRequestBundle\DependencyInjection;
+namespace Pond5\AsyncRequestBundle\DependencyInjection;
 
-use jlekowski\AsyncRequestBundle\EventListener\AsyncRequestListener;
-use jlekowski\AsyncRequestBundle\Message\AsyncRequestNotification;
+use Pond5\AsyncRequestBundle\EventListener\AsyncRequestListener;
+use Pond5\AsyncRequestBundle\Message\AsyncRequestNotification;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;

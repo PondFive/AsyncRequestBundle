@@ -1,8 +1,8 @@
 <?php
 
-namespace jlekowski\AsyncRequestBundle\MessageHandler;
+namespace Pond5\AsyncRequestBundle\MessageHandler;
 
-use jlekowski\AsyncRequestBundle\Message\AsyncRequestNotification;
+use Pond5\AsyncRequestBundle\Message\AsyncRequestNotification;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelInterface;

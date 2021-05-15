@@ -1,6 +1,6 @@
 <?php
 
-namespace jlekowski\AsyncRequestBundle\DependencyInjection;
+namespace Pond5\AsyncRequestBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

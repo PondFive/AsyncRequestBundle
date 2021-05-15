@@ -1,6 +1,6 @@
 <?php
 
-namespace jlekowski\AsyncRequestBundle\Message;
+namespace Pond5\AsyncRequestBundle\Message;
 
 use Symfony\Component\HttpFoundation\Request;
 

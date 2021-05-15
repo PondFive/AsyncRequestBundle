@@ -1,11 +1,11 @@
 {
-    "name": "jlekowski/async-request-bundle",
+    "name": "pond5/async-request-bundle",
     "description" : "AsyncRequestBundle",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "jlekowski\\AsyncRequestBundle\\": "src/"
+            "Pond5\\AsyncRequestBundle\\": "src/"
         }
     },
     "autoload-dev": {

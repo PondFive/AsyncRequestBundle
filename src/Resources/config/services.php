@@ -2,8 +2,8 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use jlekowski\AsyncRequestBundle\EventListener\AsyncRequestListener;
-use jlekowski\AsyncRequestBundle\MessageHandler\AsyncRequestNotificationHandler;
+use Pond5\AsyncRequestBundle\EventListener\AsyncRequestListener;
+use Pond5\AsyncRequestBundle\MessageHandler\AsyncRequestNotificationHandler;
 
 return static function (ContainerConfigurator $configurator) {
     // default configuration for services in *this* file

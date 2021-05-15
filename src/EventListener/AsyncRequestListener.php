@@ -1,8 +1,8 @@
 <?php
 
-namespace jlekowski\AsyncRequestBundle\EventListener;
+namespace Pond5\AsyncRequestBundle\EventListener;
 
-use jlekowski\AsyncRequestBundle\Message\AsyncRequestNotification;
+use Pond5\AsyncRequestBundle\Message\AsyncRequestNotification;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
