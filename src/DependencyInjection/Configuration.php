@@ -12,7 +12,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('async_request');
+        $treeBuilder = new TreeBuilder('pond5_async_request');
 
         $treeBuilder->getRootNode()
             ->children()

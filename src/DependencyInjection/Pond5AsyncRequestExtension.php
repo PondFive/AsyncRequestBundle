@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
-class AsyncRequestExtension extends ConfigurableExtension implements PrependExtensionInterface
+class Pond5AsyncRequestExtension extends ConfigurableExtension implements PrependExtensionInterface
 {
     /**
      * @inheritdoc
@@ -23,7 +23,7 @@ class AsyncRequestExtension extends ConfigurableExtension implements PrependExte
             return;
         }
 
-        $mergedAsyncRequestConfig = array_merge(...$container->getExtensionConfig('async_request'));
+        $mergedAsyncRequestConfig = array_merge(...$container->getExtensionConfig('pond5_async_request'));
         $transport = $mergedAsyncRequestConfig['transport'];
 
         if (!isset($mergedFrameworkConfig['messenger']['transports'][$transport])) {
@@ -39,12 +39,12 @@ class AsyncRequestExtension extends ConfigurableExtension implements PrependExte
      */
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container): void
     {
-        $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
         $loader->load('services.php');
 
         $container
-            ->getDefinition(AsyncRequestListener::class)
-            ->setArgument('$header', $mergedConfig['header'])
+            ->getDefinition('pond5_async_request.listener')
+            ->setArgument(2, $mergedConfig['header'])
         ;
     }
 

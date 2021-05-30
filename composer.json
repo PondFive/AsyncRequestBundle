@@ -1,7 +1,7 @@
 {
     "name": "pond5/async-request-bundle",
     "description": "This bundle allows sending requests to a Symfony Messenger transport to be handled later by a consumer",
-    "type": "library",
+    "type": "symfony-bundle",
     "license": "MIT",
     "autoload": {
         "psr-4": {
