@@ -2,7 +2,6 @@
 
 namespace Pond5\AsyncRequestBundle\DependencyInjection;
 
-use Pond5\AsyncRequestBundle\EventListener\AsyncRequestListener;
 use Pond5\AsyncRequestBundle\Message\AsyncRequestNotification;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -24,10 +23,13 @@ class Pond5AsyncRequestExtension extends ConfigurableExtension implements Prepen
         }
 
         $mergedAsyncRequestConfig = array_merge(...$container->getExtensionConfig('pond5_async_request'));
-        $transport = $mergedAsyncRequestConfig['transport'];
+        $transport = $mergedAsyncRequestConfig['transport'] ?? null;
+        if (!$transport) {
+            throw new \InvalidArgumentException('No transport provided. Setting "pond5_async_request.transport" is required.');
+        }
 
         if (!isset($mergedFrameworkConfig['messenger']['transports'][$transport])) {
-            throw new \RuntimeException(sprintf('Transport `%s` has not been set in "framework.messenger.transports".', $transport));
+            throw new \LogicException(sprintf('Transport `%s` has not been set in "framework.messenger.transports".', $transport));
         }
 
         $config = ['messenger' => ['routing' => [AsyncRequestNotification::class => $transport]]];
