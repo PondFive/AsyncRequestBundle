@@ -13,11 +13,13 @@ return static function (ContainerConfigurator $configurator) {
                 service('messenger.bus.default'),
                 service('logger')
             ])
+            ->tag('kernel.event_subscriber')
 
         ->set('pond5_async_request.notification_handler', AsyncRequestNotificationHandler::class)
             ->args([
                 service('kernel'),
                 service('logger')
             ])
+            ->tag('messenger.message_handler')
     ;
 };
