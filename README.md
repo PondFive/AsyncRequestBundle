@@ -1,6 +1,8 @@
 AsyncRequestBundle
 ==================
 
+[![Pond5 Async Request Bundle](https://github.com/PondFive/AsyncRequestBundle/actions/workflows/ci.yaml/badge.svg)](https://github.com/PondFive/AsyncRequestBundle/actions/workflows/ci.yaml)
+
 This bundle allows sending requests to a [Symfony Messenger](https://symfony.com/doc/current/messenger.html) transport to be handled later by a consumer.
 
 Installation
