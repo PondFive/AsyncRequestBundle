@@ -1,2 +1,14 @@
 parameters:
+    level: max
+    paths:
+        - ../tests
+    checkMissingIterableValueType: false
     ignoreErrors:
+        - '#Method .* has no return typehint specified.#'
+        - '#Call to an undefined method .*(Prophecy\\Prophecy\\ObjectProphecy|willThrow)#'
+        - '#Access to an undefined property Prophecy\\Prophecy\\ObjectProphecy#'
+        - '#Cannot call method should(Not)?BeCalled(Once|Times)?\(\) on (void|bool)\.#'
+        - '#Call to an undefined method .*::should(Not)?BeCalled(Once|Times)?\(\).#'
+        - '#Parameter \#.* of .* expects .*, .*given#'
+        - '#Call to an undefined method .*::willReturn\(\).#'
+        - '#Cannot call method willReturn\(\) on .*#'
