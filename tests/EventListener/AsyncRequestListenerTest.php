@@ -98,12 +98,12 @@ class AsyncRequestListenerTest extends TestCase
 
         $headerBag = $this->prophesize(HeaderBag::class);
         $headerBag->get(self::HEADER)->willReturn('1');
+        $headerBag->remove(self::HEADER)->shouldBeCalled();
 
         $request = $this->prophesize(Request::class);
         $request->getMethod()->willReturn($method);
         $request->headers = $headerBag;
 
-        $this->event->isMasterRequest()->willReturn(true);
         $this->event->getRequest()->willReturn($request);
 
         $this->logger->debug('Received async request')->shouldBeCalled();
@@ -143,10 +143,14 @@ class AsyncRequestListenerTest extends TestCase
             $asyncMethods
         );
 
+        $headerBag = $this->prophesize(HeaderBag::class);
+        $headerBag->get(self::HEADER)->willReturn('1');
+        $headerBag->remove(self::HEADER)->shouldNotBeCalled();
+
         $request = $this->prophesize(Request::class);
         $request->getMethod()->willReturn($method);
+        $request->headers = $headerBag;
 
-        $this->event->isMasterRequest()->willReturn(true);
         $this->event->getRequest()->willReturn($request);
 
         $this->bus->dispatch(Argument::cetera())->shouldNotBeCalled();
@@ -158,33 +162,16 @@ class AsyncRequestListenerTest extends TestCase
     /**
      * @covers ::onKernelRequest
      */
-    public function testOnKernelRequestSupportsOnlyMasterRequests()
-    {
-        $request = $this->prophesize(Request::class);
-        $request->getMethod()->willReturn('PATCH');
-
-        $this->event->isMasterRequest()->willReturn(false);
-        $this->event->getRequest()->willReturn($request);
-
-        $this->bus->dispatch(Argument::cetera())->shouldNotBeCalled();
-        $this->event->setResponse(Argument::cetera())->shouldNotBeCalled();
-
-        $this->asyncRequestListener->onKernelRequest($this->event->reveal());
-    }
-
-    /**
-     * @covers ::onKernelRequest
-     */
-    public function testOnKernelRequestSupportsOnlyRequestsWithAsyncHeader()
+    public function testOnKernelRequestSupportsOnlyRequestsWithAsyncRequestHeader()
     {
         $headerBag = $this->prophesize(HeaderBag::class);
         $headerBag->get(self::HEADER)->willReturn(null);
+        $headerBag->remove(Argument::any())->shouldNotBeCalled();
 
         $request = $this->prophesize(Request::class);
         $request->getMethod()->willReturn('PATCH');
         $request->headers = $headerBag;
 
-        $this->event->isMasterRequest()->willReturn(true);
         $this->event->getRequest()->willReturn($request);
 
         $this->bus->dispatch(Argument::cetera())->shouldNotBeCalled();

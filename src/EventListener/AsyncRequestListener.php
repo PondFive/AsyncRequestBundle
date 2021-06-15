@@ -52,12 +52,9 @@ class AsyncRequestListener implements EventSubscriberInterface
     public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
-        if (
-            $event->isMasterRequest()
-            && in_array($request->getMethod(), $this->methods)
-            && $request->headers->get($this->asyncHeader)
-        ) {
+        if ($request->headers->get($this->asyncHeader) && in_array($request->getMethod(), $this->methods)) {
             $this->logger->debug('Received async request');
+            $request->headers->remove($this->asyncHeader);
             $this->bus->dispatch(new AsyncRequestNotification($request));
             $event->setResponse(new Response(null, Response::HTTP_ACCEPTED, ['Content-Type' => null]));
         }
