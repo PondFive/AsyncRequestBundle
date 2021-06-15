@@ -73,12 +73,12 @@ class AsyncRequestListenerTest extends TestCase
     /**
      * @covers ::getSubscribedEvents
      */
-    public function testSubscribesToKernelRequestWithLowPriority()
+    public function testSubscribesToKernelRequestWithHighPriority()
     {
         $subscribedEvents = $this->asyncRequestListener::getSubscribedEvents();
 
         $this->assertArrayHasKey(KernelEvents::REQUEST, $subscribedEvents);
-        $this->assertEquals(['onKernelRequest', -10], $subscribedEvents[KernelEvents::REQUEST]);
+        $this->assertEquals(['onKernelRequest', 200], $subscribedEvents[KernelEvents::REQUEST]);
     }
 
     /**

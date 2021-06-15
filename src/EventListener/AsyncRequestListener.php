@@ -66,7 +66,7 @@ class AsyncRequestListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::REQUEST => ['onKernelRequest', -10] // run after all other events
+            KernelEvents::REQUEST => ['onKernelRequest', 200] // run after ValidateRequestListener
         ];
     }
 }
