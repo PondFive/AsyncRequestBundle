@@ -62,6 +62,7 @@ class AsyncRequestNotificationHandlerTest extends TestCase
         $response->getStatusCode()->willReturn(200);
         $this->kernel->handle($request, HttpKernelInterface::SUB_REQUEST)->willReturn($response);
 
+        $this->logger->debug('Process async request')->shouldBeCalled();
         $this->logger->info('Processed async request successfully', [
             'status_code' => 200,
         ])->shouldBeCalled();
@@ -79,6 +80,7 @@ class AsyncRequestNotificationHandlerTest extends TestCase
         $response->getStatusCode()->willReturn(404);
         $this->kernel->handle($request, HttpKernelInterface::SUB_REQUEST)->willReturn($response);
 
+        $this->logger->debug('Process async request')->shouldBeCalled();
         $this->logger->error('Processing async request failed', [
             'status_code' => 404,
         ])->shouldBeCalled();

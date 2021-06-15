@@ -36,6 +36,7 @@ class AsyncRequestNotificationHandler implements MessageHandlerInterface
      */
     public function __invoke(AsyncRequestNotification $notification): void
     {
+        $this->logger->debug('Process async request');
         $request = $notification->getRequest();
         $response = $this->kernel->handle($request, HttpKernelInterface::SUB_REQUEST);
 
