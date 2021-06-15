@@ -24,7 +24,7 @@ framework:
 
 2. Run composer
 ```bash
-composer require pond5/async-request-bundle:dev-master
+composer require pond5/async-request-bundle:dev-main
 ```
 If you are not using Flex, you need to enable the bundle manually:
 
