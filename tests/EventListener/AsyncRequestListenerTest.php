@@ -26,6 +26,7 @@ class AsyncRequestListenerTest extends TestCase
     use ProphecyTrait;
 
     private const HEADER = 'X-Request-Async-Test';
+    private const METHODS = ['DELETE', 'PATCH', 'POST', 'PUT'];
 
     /**
      * @var MessageBusInterface|ObjectProphecy
@@ -56,7 +57,8 @@ class AsyncRequestListenerTest extends TestCase
         $this->asyncRequestListener = new AsyncRequestListener(
             $this->bus->reveal(),
             $this->logger->reveal(),
-            self::HEADER
+            self::HEADER,
+            self::METHODS
         );
     }
 
@@ -82,10 +84,18 @@ class AsyncRequestListenerTest extends TestCase
     /**
      * @covers ::onKernelRequest
      * @dataProvider supportedMethodProvider
+     * @param array $asyncMethods
      * @param string $method
      */
-    public function testOnKernelRequestForSupportedRequestMethods(string $method)
+    public function testOnKernelRequestForSupportedRequestMethods(array $asyncMethods, string $method)
     {
+        $this->asyncRequestListener = new AsyncRequestListener(
+            $this->bus->reveal(),
+            $this->logger->reveal(),
+            self::HEADER,
+            $asyncMethods
+        );
+
         $headerBag = $this->prophesize(HeaderBag::class);
         $headerBag->get(self::HEADER)->willReturn('1');
 
@@ -121,10 +131,18 @@ class AsyncRequestListenerTest extends TestCase
     /**
      * @covers ::onKernelRequest
      * @dataProvider unsupportedMethodProvider
+     * @param array $asyncMethods
      * @param string $method
      */
-    public function testOnKernelRequestForNotSupportedRequestMethods(string $method)
+    public function testOnKernelRequestForNotSupportedRequestMethods(array $asyncMethods, string $method)
     {
+        $this->asyncRequestListener = new AsyncRequestListener(
+            $this->bus->reveal(),
+            $this->logger->reveal(),
+            self::HEADER,
+            $asyncMethods
+        );
+
         $request = $this->prophesize(Request::class);
         $request->getMethod()->willReturn($method);
 
@@ -180,10 +198,11 @@ class AsyncRequestListenerTest extends TestCase
      */
     public function supportedMethodProvider(): iterable
     {
-        yield ['DELETE'];
-        yield ['PATCH'];
-        yield ['POST'];
-        yield ['PUT'];
+        // async request methods,                  request method
+        yield [['DELETE', 'PATCH', 'POST', 'PUT'], 'DELETE'];
+        yield [['PATCH'],                          'PATCH'];
+        yield [['DELETE', 'POST'],                 'POST'];
+        yield [['POST', 'PUT'],                    'PUT'];
     }
 
     /**
@@ -191,9 +210,14 @@ class AsyncRequestListenerTest extends TestCase
      */
     public function unsupportedMethodProvider(): iterable
     {
-        yield ['GET'];
-        yield ['OPTIONS'];
-        yield ['HEAD'];
-        yield ['SEARCH'];
+        // async request methods,                  request method
+        yield [['DELETE', 'PATCH', 'POST', 'PUT'], 'GET'];
+        yield [['DELETE', 'PATCH', 'PUT'],         'POST'];
+        yield [['dELETE'],                         'DELETE'];
+        yield [['Patch'],                          'PATCH'];
+        yield [['post'],                           'POST'];
+        yield [['post'],                           'PUT'];
+        yield [['puT'],                            'PUT'];
+        yield [[''],                               'POST'];
     }
 }

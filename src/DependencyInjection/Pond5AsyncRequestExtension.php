@@ -47,6 +47,7 @@ class Pond5AsyncRequestExtension extends ConfigurableExtension implements Prepen
         $container
             ->getDefinition('pond5_async_request.listener')
             ->setArgument(2, $mergedConfig['header'])
+            ->setArgument(3, $mergedConfig['methods'])
         ;
     }
 

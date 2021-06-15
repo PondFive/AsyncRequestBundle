@@ -38,6 +38,7 @@ class Pond5AsyncRequestExtensionTest extends TestCase
             'pond5_async_request' => [
                 'transport' => 'async-request-test',
                 'header' => 'X-Header-Test',
+                'methods' => ['get', 'TeSt'],
             ],
         ];
         $extension->load($config, $container);
@@ -46,6 +47,7 @@ class Pond5AsyncRequestExtensionTest extends TestCase
         $this->assertTrue($container->hasDefinition('pond5_async_request.notification_handler'));
         $this->assertTrue($container->hasDefinition('pond5_async_request.listener'));
         $this->assertSame('X-Header-Test', $container->getDefinition('pond5_async_request.listener')->getArgument(2));
+        $this->assertSame(['GET', 'TEST'], $container->getDefinition('pond5_async_request.listener')->getArgument(3));
     }
 
     /**

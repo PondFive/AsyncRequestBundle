@@ -28,15 +28,22 @@ class AsyncRequestListener implements EventSubscriberInterface
     private string $asyncHeader;
 
     /**
+     * @var array
+     */
+    private array $methods;
+
+    /**
      * @param MessageBusInterface $bus
      * @param LoggerInterface $logger
      * @param string $header
+     * @param array $methods Make sure uppercased (see array_map('strtoupper', $method) in Configuration class)
      */
-    public function __construct(MessageBusInterface $bus, LoggerInterface $logger, string $header)
+    public function __construct(MessageBusInterface $bus, LoggerInterface $logger, string $header, array $methods)
     {
         $this->bus = $bus;
         $this->logger = $logger;
         $this->asyncHeader = $header;
+        $this->methods = $methods;
     }
 
     /**
@@ -47,7 +54,7 @@ class AsyncRequestListener implements EventSubscriberInterface
         $request = $event->getRequest();
         if (
             $event->isMasterRequest()
-            && in_array($request->getMethod(), ['DELETE', 'PATCH', 'POST', 'PUT'])
+            && in_array($request->getMethod(), $this->methods)
             && $request->headers->get($this->asyncHeader)
         ) {
             $this->logger->debug('Received async request');
