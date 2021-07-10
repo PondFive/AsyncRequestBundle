@@ -2,6 +2,7 @@ AsyncRequestBundle
 ==================
 
 [![Pond5 Async Request Bundle](https://github.com/PondFive/AsyncRequestBundle/actions/workflows/ci.yaml/badge.svg)](https://github.com/PondFive/AsyncRequestBundle/actions/workflows/ci.yaml)
+[![codecov](https://codecov.io/gh/PondFive/AsyncRequestBundle/branch/main/graph/badge.svg?token=HAAA5YZBT8)](https://codecov.io/gh/PondFive/AsyncRequestBundle)
 [![Latest Stable Version](http://poser.pugx.org/pond5/async-request-bundle/v)](https://packagist.org/packages/pond5/async-request-bundle)
 [![Total Downloads](http://poser.pugx.org/pond5/async-request-bundle/downloads)](https://packagist.org/packages/pond5/async-request-bundle)
 
