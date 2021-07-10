@@ -14,6 +14,7 @@ return static function (ContainerConfigurator $configurator) {
                 service('logger')
             ])
             ->tag('kernel.event_subscriber')
+            ->tag('monolog.logger', ['channel' => 'async_request'])
 
         ->set('pond5_async_request.notification_handler', AsyncRequestNotificationHandler::class)
             ->args([
@@ -21,5 +22,6 @@ return static function (ContainerConfigurator $configurator) {
                 service('logger')
             ])
             ->tag('messenger.message_handler')
+            ->tag('monolog.logger', ['channel' => 'async_request'])
     ;
 };
