@@ -55,6 +55,7 @@ class AsyncRequestListener implements EventSubscriberInterface
         if ($request->headers->get($this->asyncHeader) && in_array($request->getMethod(), $this->methods)) {
             $this->logger->debug('Received async request');
             $request->headers->remove($this->asyncHeader);
+            $request->getContent(); // read content from resource to have it serialized
             $this->bus->dispatch(new AsyncRequestNotification($request));
             $event->setResponse(new Response(null, Response::HTTP_ACCEPTED, ['Content-Type' => null]));
         }
