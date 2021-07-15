@@ -11,7 +11,21 @@ This bundle allows sending requests to a [Symfony Messenger](https://symfony.com
 Installation
 ------------
 
-1. Add config file (no recipe yet)
+Make sure Composer is installed globally, as explained in the
+[installation chapter](https://getcomposer.org/doc/00-intro.md)
+of the Composer documentation.
+
+### Applications that use Symfony Flex
+
+Open a command console, enter your project directory and execute:
+
+```shell
+composer require pond5/async-request-bundle
+```
+
+### Applications that don't use Symfony Flex
+
+1. Add config file
 ```yaml
 # config/packages/pond5_async_request.yaml
 pond5_async_request:
@@ -26,22 +40,32 @@ framework:
             async-request: '%env(MESSENGER_TRANSPORT_DSN)%'
 ```
 
-2. Run composer
-```bash
+2. Download the Bundle
+
+Open a command console, enter your project directory and execute the
+following command to download the latest stable version of this bundle:
+```shell
 composer require pond5/async-request-bundle
 ```
-If you are not using Flex, you need to enable the bundle manually:
 
+3. Enable the Bundle
+
+Then, enable the bundle by adding it to the list of registered bundles
+in the `config/bundles.php` file of your project:
 ```php
 // config/bundles.php
-Pond5\AsyncRequestBundle\Pond5AsyncRequestBundle::class => ['all' => true],
+
+return [
+    // ...
+    Pond5\AsyncRequestBundle\Pond5AsyncRequestBundle::class => ['all' => true],
+];
 ```
 
 Usage
 -----
 
 1. Add `X-Request-Async` header a `DELETE, PATCH, POST, PUT` request, e.g.
-```bash
+```shell
 curl -i -X POST http://example.org/endpoint -H "X-Request-Async: 1"
 ```
 Symfony should respond with `202` status code and empty body:
@@ -51,7 +75,7 @@ Content-Length: 0
 ```
 
 2. Handle the request/consume the message
-```bash
+```shell
 bin/console messenger:consume
 ```
 
@@ -59,10 +83,10 @@ Test
 ----
 
 1. Install dev dependencies.
-```
+```shell
 composer install
 ```
 2. Run unit tests.
-```
+```shell
 bin/phpunit
 ```
