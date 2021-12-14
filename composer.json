@@ -15,7 +15,7 @@
     },
     "require": {
         "php": ">=7.4",
-        "psr/log": "^1.1",
+        "psr/log": "^1.1|^2.0|^3.0",
         "symfony/config": "^5.2|^6.0",
         "symfony/dependency-injection": "^5.2|^6.0",
         "symfony/event-dispatcher": "^5.2|^6.0",
