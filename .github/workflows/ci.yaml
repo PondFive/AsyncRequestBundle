@@ -2,7 +2,7 @@ name: Pond5 Async Request Bundle
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, dev ]
   pull_request:
     branches: [ main ]
 
