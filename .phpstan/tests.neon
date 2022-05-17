@@ -7,6 +7,6 @@ parameters:
         - '#Method .* has no return typehint specified.#'
         - '#Call to an undefined method .*(Prophecy\\Prophecy\\ObjectProphecy|willThrow|willReturn)#'
         - '#Access to an undefined property Prophecy\\Prophecy\\ObjectProphecy#'
-        - '#Cannot call method should(Not)?BeCalled(Once|Times)?\(\) on (void|bool)\.#'
+        - '#Cannot call method should(Not)?BeCalled(Once|Times)?\(\) on .*\.#'
         - '#Call to an undefined method .*::should(Not)?BeCalled(Once|Times)?\(\).#'
         - '#Parameter \#.* of .* expects .*, .*given#'

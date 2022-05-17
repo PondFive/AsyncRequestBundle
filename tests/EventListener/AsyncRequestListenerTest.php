@@ -103,7 +103,6 @@ class AsyncRequestListenerTest extends TestCase
         $request = $this->prophesize(Request::class);
         $request->getMethod()->willReturn($method);
         $request->headers = $headerBag;
-        $request->getContent()->shouldBeCalled();
 
         $this->event->getRequest()->willReturn($request);
 
@@ -151,7 +150,6 @@ class AsyncRequestListenerTest extends TestCase
         $request = $this->prophesize(Request::class);
         $request->getMethod()->willReturn($method);
         $request->headers = $headerBag;
-        $request->getContent()->shouldNotBeCalled();
 
         $this->event->getRequest()->willReturn($request);
 
@@ -173,7 +171,6 @@ class AsyncRequestListenerTest extends TestCase
         $request = $this->prophesize(Request::class);
         $request->getMethod()->willReturn('PATCH');
         $request->headers = $headerBag;
-        $request->getContent()->shouldNotBeCalled();
 
         $this->event->getRequest()->willReturn($request);
 
