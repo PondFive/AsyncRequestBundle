@@ -26,4 +26,21 @@ class AsyncRequestNotification
     {
         return $this->request;
     }
+
+    /**
+     * Message must be serializable while some attributes may contain e.g. Closures.
+     * Additionally, the body must be fetched from php://input before serialization (or it is lost).
+     * @see https://symfony.com/doc/current/messenger.html#creating-a-message-handler
+     * @return array
+     */
+    public function __serialize(): array
+    {
+        $this->request->getContent(); // read content from resource to have it serialized
+        // remove attributes
+        $request = $this->request->duplicate(null, null, []);
+
+        return [
+            'request' => $request,
+        ];
+    }
 }
